@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Form.module.css'
 
 const Form = ({ onAddPost }) => {
@@ -9,10 +9,14 @@ const Form = ({ onAddPost }) => {
       tags: '',
       published: false,
       author: '',
+      category: '',
     });
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormState({ ...formState, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setFormState((prevData) => ({
+          ...prevData,
+          [name]: type === 'checkbox' ? checked : value,
+        }));
     };
   
     const handleSubmit = (e) => {
@@ -27,8 +31,13 @@ const Form = ({ onAddPost }) => {
         tags: formState.tags.split(',').map(tag => tag.trim()),
       });
   
-      setFormState({ title: '', image: '', content: '', tags: '', published: false, author: '' });
+      setFormState({ title: '', image: '', content: '', tags: '', published: false, author: '',category: ''});
     };
+    useEffect(() => {
+      if (formState.published) {
+        alert('Stai per pubblicare un articolo.');
+      }
+    }, [formState.published]);
   
     return (
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -66,10 +75,25 @@ const Form = ({ onAddPost }) => {
         value={formState.author}
         onChange={handleChange}
       />
-      <select name="published" value={formState.published} onChange={handleChange}>
+      <select name="category" value={formState.category} onChange={handleChange}>
+        <option value="">Seleziona una categoria</option>
+        <option value="tech">Tech</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="news">News</option>
+      </select>
+      {/* <select name="published" value={formState.published} onChange={handleChange}>
         <option value="false">Draft</option>
         <option value="true">Published</option>
-      </select>
+      </select> */}
+      <label>
+        <input
+          type="checkbox"
+          name="published"
+          checked={formState.published}
+          onChange={handleChange}
+        />
+        Pubblica
+      </label>
         <button type="submit">Aggiungi Post</button>
       </form>
     );
