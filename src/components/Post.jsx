@@ -53,6 +53,7 @@ const Post = ({ post, onDelete, onEdit}) => {
         )}
         <div className={styles.btnWrapper}>
           <button className={styles.readMoreButton}>LEGGI DI PIÙ</button>
+          <div className={styles.category}>{post.category}</div>
           <div className={styles.postActions}>
             <button className={styles.editBtn}
               onClick={() => setIsEditing(!isEditing)}>

@@ -57,6 +57,7 @@
 .btnWrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .saveButton {
@@ -79,10 +80,17 @@
 }
 
 .editBtn{
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   background-color: black;
   border-radius: 5px;
   border: none;
   color: white;
   padding: 5px;
+}
+
+.category {
+  background-color: #7DF9FF;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
